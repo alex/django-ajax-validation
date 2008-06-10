@@ -36,8 +36,20 @@ def include_validation():
                                 if (!status)    {
                                     if (settings.type == 'p')    {
                                         inputs(form).parent().prev('ul').remove();
+                                        inputs(form).parent().prev('ul').remove()
                                         $.each(data.errors, function(key, val)  {
-                                            $('#id_' + key).parent().before('<ul class="errorlist"><li>' + val + '</li></ul>');
+                                            if (key == '__all__')   {
+                                                var error = inputs(form).filter(':first').parent();
+                                                if (error.prev().is('ul.errorlist')) {
+                                                    error.prev().before('<ul class="errorlist"><li>' + val + '</li></ul>');
+                                                }
+                                                else    {
+                                                    error.before('<ul class="errorlist"><li>' + val + '</li></ul>');
+                                                }
+                                            }
+                                            else    {
+                                                $('#id_' + key).parent().before('<ul class="errorlist"><li>' + val + '</li></ul>');
+                                            }
                                         });
                                     }
                                     if (settings.type == 'table')   {
