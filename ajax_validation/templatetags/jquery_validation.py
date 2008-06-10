@@ -54,8 +54,14 @@ def include_validation():
                                     }
                                     if (settings.type == 'table')   {
                                         inputs(form).prev('ul').remove();
+                                        inputs(form).filter(':first').parent().parent().prev('tr').remove()
                                         $.each(data.errors, function(key, val)  {
-                                            $('#id_' + key).before('<ul class="errorlist"><li>' + val + '</li></ul>');
+                                            if (key == '__all__')   {
+                                                inputs(form).filter(':first').parent().parent().before('<tr><td colspan="2"><ul class="errorlist"><li>' + val + '.</li></ul></td></tr>')
+                                            }
+                                            else    {
+                                                $('#id_' + key).before('<ul class="errorlist"><li>' + val + '</li></ul>');
+                                            }
                                         });
                                     }
                                     if (settings.type == 'ul')  {
