@@ -46,6 +46,12 @@ def include_validation():
                                             $('#id_' + key).before('<ul class="errorlist"><li>' + val + '</li></ul>');
                                         });
                                     }
+                                    if (settings.type == 'ul')  {
+                                        inputs(form).prev().prev('ul').remove();
+                                        $.each(data.errors, function(key, val)  {
+                                            $('#id_' + key).prev().before('<ul class="errorlist"><li>' + val + '</li></ul>');
+                                        });
+                                    }
                                 }
                             },
                             type: 'POST',
