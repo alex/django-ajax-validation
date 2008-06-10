@@ -7,7 +7,7 @@ def include_validation():
     <script type="text/javascript">
         (function($)    {
             function inputs(form)   {
-                return form.find("input[@checked], input[@type='text'], input[@type='hidden'], input[@type='password'], input[@type='submit'], option[@selected], textarea").filter(':enabled')            
+                return form.find("input[@checked], input[@type='text'], input[@type='hidden'], input[@type='password'], input[@type='submit'], option[@selected], textarea").filter(':enabled');
             }
             
             $.fn.validate = function(url, settings) {
@@ -34,11 +34,18 @@ def include_validation():
                             success: function(data, textStatus) {
                                 status = data.valid;
                                 if (!status)    {
-                                    inputs(form).parent().prev('ul').remove();
-                                    
-                                    $.each(data.errors, function(key, val)  {
-                                        $('#id_' + key).parent().before('<ul class="errorlist"><li>' + val + '</li></ul>');
-                                    });
+                                    if (settings.type == 'p')    {
+                                        inputs(form).parent().prev('ul').remove();
+                                        $.each(data.errors, function(key, val)  {
+                                            $('#id_' + key).parent().before('<ul class="errorlist"><li>' + val + '</li></ul>');
+                                        });
+                                    }
+                                    if (settings.type == 'table')   {
+                                        inputs(form).prev('ul').remove();
+                                        $.each(data.errors, function(key, val)  {
+                                            $('#id_' + key).before('<ul class="errorlist"><li>' + val + '</li></ul>');
+                                        });
+                                    }
                                 }
                             },
                             type: 'POST',
