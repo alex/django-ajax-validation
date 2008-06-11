@@ -12,7 +12,8 @@ def include_validation():
             
             $.fn.validate = function(url, settings) {
                 settings = $.extend({
-                    type: 'table'
+                    type: 'table',
+                    callback: false
                 }, settings);
                 
                 return this.each(function() {
@@ -34,47 +35,52 @@ def include_validation():
                             success: function(data, textStatus) {
                                 status = data.valid;
                                 if (!status)    {
-                                    if (settings.type == 'p')    {
-                                        inputs(form).parent().prev('ul').remove();
-                                        inputs(form).parent().prev('ul').remove()
-                                        $.each(data.errors, function(key, val)  {
-                                            if (key == '__all__')   {
-                                                var error = inputs(form).filter(':first').parent();
-                                                if (error.prev().is('ul.errorlist')) {
-                                                    error.prev().before('<ul class="errorlist"><li>' + val + '</li></ul>');
+                                    if (settings.callback)  {
+                                        settings.callback(data);
+                                    }
+                                    else    {
+                                        if (settings.type == 'p')    {
+                                            inputs(form).parent().prev('ul').remove();
+                                            inputs(form).parent().prev('ul').remove()
+                                            $.each(data.errors, function(key, val)  {
+                                                if (key == '__all__')   {
+                                                    var error = inputs(form).filter(':first').parent();
+                                                    if (error.prev().is('ul.errorlist')) {
+                                                        error.prev().before('<ul class="errorlist"><li>' + val + '</li></ul>');
+                                                    }
+                                                    else    {
+                                                        error.before('<ul class="errorlist"><li>' + val + '</li></ul>');
+                                                    }
                                                 }
                                                 else    {
-                                                    error.before('<ul class="errorlist"><li>' + val + '</li></ul>');
+                                                    $('#id_' + key).parent().before('<ul class="errorlist"><li>' + val + '</li></ul>');
                                                 }
-                                            }
-                                            else    {
-                                                $('#id_' + key).parent().before('<ul class="errorlist"><li>' + val + '</li></ul>');
-                                            }
-                                        });
-                                    }
-                                    if (settings.type == 'table')   {
-                                        inputs(form).prev('ul').remove();
-                                        inputs(form).filter(':first').parent().parent().prev('tr').remove();
-                                        $.each(data.errors, function(key, val)  {
-                                            if (key == '__all__')   {
-                                                inputs(form).filter(':first').parent().parent().before('<tr><td colspan="2"><ul class="errorlist"><li>' + val + '.</li></ul></td></tr>');
-                                            }
-                                            else    {
-                                                $('#id_' + key).before('<ul class="errorlist"><li>' + val + '</li></ul>');
-                                            }
-                                        });
-                                    }
-                                    if (settings.type == 'ul')  {
-                                        inputs(form).prev().prev('ul').remove();
-                                        inputs(form).filter(':first').parent().prev('li').remove();
-                                        $.each(data.errors, function(key, val)  {
-                                            if (key == '__all__')   {
-                                                inputs(form).filter(':first').parent().before('<li><ul class="errorlist"><li>' + val + '</li></ul></li>');
-                                            }
-                                            else    {
-                                                $('#id_' + key).prev().before('<ul class="errorlist"><li>' + val + '</li></ul>');
-                                            }
-                                        });
+                                            });
+                                        }
+                                        if (settings.type == 'table')   {
+                                            inputs(form).prev('ul').remove();
+                                            inputs(form).filter(':first').parent().parent().prev('tr').remove();
+                                            $.each(data.errors, function(key, val)  {
+                                                if (key == '__all__')   {
+                                                    inputs(form).filter(':first').parent().parent().before('<tr><td colspan="2"><ul class="errorlist"><li>' + val + '.</li></ul></td></tr>');
+                                                }
+                                                else    {
+                                                    $('#id_' + key).before('<ul class="errorlist"><li>' + val + '</li></ul>');
+                                                }
+                                            });
+                                        }
+                                        if (settings.type == 'ul')  {
+                                            inputs(form).prev().prev('ul').remove();
+                                            inputs(form).filter(':first').parent().prev('li').remove();
+                                            $.each(data.errors, function(key, val)  {
+                                                if (key == '__all__')   {
+                                                    inputs(form).filter(':first').parent().before('<li><ul class="errorlist"><li>' + val + '</li></ul></li>');
+                                                }
+                                                else    {
+                                                    $('#id_' + key).prev().before('<ul class="errorlist"><li>' + val + '</li></ul>');
+                                                }
+                                            });
+                                        }
                                     }
                                 }
                             },
