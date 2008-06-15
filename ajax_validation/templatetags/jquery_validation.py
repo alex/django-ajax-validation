@@ -36,7 +36,7 @@ def include_validation():
                                 status = data.valid;
                                 if (!status)    {
                                     if (settings.callback)  {
-                                        settings.callback(data);
+                                        settings.callback(data, form);
                                     }
                                     else    {
                                         if (settings.type == 'p')    {
