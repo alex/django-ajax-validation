@@ -15,7 +15,7 @@ forms.py:
 
 
 You would need to add the following url to your urls.py(you need to import the form class):
-    (r'^SOME/URL/$', 'ajax_validation.views.validate', {'form_class': ContactForm}, name='contact_form_validate')
+    (r'^SOME/URL/$', 'ajax_validation.views.validate', {'form_class': ContactForm}, 'contact_form_validate')
 
 And then in the template where you want to display the form(in the head):
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
