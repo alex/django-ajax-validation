@@ -27,7 +27,7 @@ def include_validation():
                         
                         var status = false;
                         if (settings.fields) {
-                            params['fields'] = settings.fields;
+                            params.fields = settings.fields;
                         }
                         $.ajax({
                             async: false,
@@ -45,7 +45,7 @@ def include_validation():
                                     else    {
                                         if (settings.type == 'p')    {
                                             inputs(form).parent().prev('ul').remove();
-                                            inputs(form).parent().prev('ul').remove()
+                                            inputs(form).parent().prev('ul').remove();
                                             $.each(data.errors, function(key, val)  {
                                                 if (key == '__all__')   {
                                                     var error = inputs(form).filter(':first').parent();
