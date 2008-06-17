@@ -14,7 +14,7 @@ def include_validation():
                 settings = $.extend({
                     type: 'table',
                     callback: false,
-                    fields: false,
+                    fields: false
                 }, settings);
                 
                 return this.each(function() {
