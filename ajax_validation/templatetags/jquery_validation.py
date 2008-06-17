@@ -14,14 +14,16 @@ def include_validation():
                 settings = $.extend({
                     type: 'table',
                     callback: false,
-                    fields: false
+                    fields: false,
+                    dom: this,
+                    event: 'submit'
                 }, settings);
                 
                 return this.each(function() {
-                    $(this).submit(function()  {
-                        var form = $(this);
+                    var form = $(this);
+                    settings.dom.bind(settings.event, function()  {
                         var params = {};
-                        inputs($(this)).each(function() {
+                        inputs(form).each(function() {
                             params[ this.name || this.id || this.parentNode.name || this.parentNode.id ] = this.value; 
                         });
                         
