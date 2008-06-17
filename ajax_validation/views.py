@@ -9,9 +9,14 @@ def validate(request, form_class):
             'valid': True,
         }
     else:
+        if request.POST.getlist('fields'):
+            fields = request.POST.getlist('fields') + ['__all__']
+            errors = dict([(key, val) for key, val in form.errors.iteritems() if key in fields])
+        else:
+            errors = form.errors
         data = {
             'valid': False,
-            'errors': form.errors,
+            'errors': errors,
         }
     json_serializer = LazyEncoder()
     return HttpResponse(json_serializer.encode(data), mimetype='application/json')

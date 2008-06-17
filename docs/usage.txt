@@ -29,10 +29,12 @@ And then in the template where you want to display the form(in the head):
 
 As you can see, you need to have jQuery for this to work(here it is being loaded
 from google).  In the javascript you use jQuery's selectors to select where the 
-form is, and the validate method takes 2 parameters, first is the URL of the 
-validation, here we reverse the URL we set up earlier.  The second parameter is 
-a dictionary, it is optional and should either provide type(ul, table, or p), 
-this is the type of renderer you used for django's forms(form.as_p, etc.), the 
-default is table if nothing is provided.  It can also take a callback option 
-which is a function that recieves data, which is the JSON representation of any 
-errors, and form, which is the jquery object that you provided.
+form is, and the validate method takes 3 parameters, all optional, first is the 
+URL of the validation, here we reverse the URL we set up earlier.  The second 
+parameter is a dictionary, it is optional and should either provide type(ul, 
+table, or p), this is the type of renderer you used for django's forms(form.as_p, 
+etc.), the default is table if nothing is provided.  It can also take a callback 
+option which is a function that recieves data, which is the JSON representation 
+of any errors, and form, which is the jquery object that you provided.  Finally, 
+it takes fields, which is a list of the fields that should be validated, it will 
+not display errors that aren't in that list of fields.

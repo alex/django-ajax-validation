@@ -13,7 +13,8 @@ def include_validation():
             $.fn.validate = function(url, settings) {
                 settings = $.extend({
                     type: 'table',
-                    callback: false
+                    callback: false,
+                    fields: false,
                 }, settings);
                 
                 return this.each(function() {
@@ -25,6 +26,9 @@ def include_validation():
                         });
                         
                         var status = false;
+                        if (settings.fields) {
+                            params['fields'] = settings.fields;
+                        }
                         $.ajax({
                             async: false,
                             data: params,
