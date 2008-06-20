@@ -1,0 +1,5 @@
+Install
+=======
+
+To install djanog-ajax-validation simply place ajax_validation/ on your 
+PYTHONPATH.
