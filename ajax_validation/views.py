@@ -2,8 +2,11 @@ from ajax_validation.utils import LazyEncoder
 from django.http import HttpResponse
 from django.views.decorators.http import require_POST
 
-def validate(request, form_class):
-    form = form_class(request.POST, request.FILES)
+def validate(request, *args, **kwargs):
+    form_class = kwargs.pop('form_class')
+    extra_args_func = kwargs.get('callback', lambda request, *args, **kwargs: {})
+    kwargs = extra_args_func(request, *args, **kwargs)
+    form = form_class(request.POST, request.FILES, **kwargs)
     if form.is_valid():
         data = {
             'valid': True,
