@@ -6,7 +6,8 @@ def validate(request, *args, **kwargs):
     form_class = kwargs.pop('form_class')
     extra_args_func = kwargs.pop('callback', lambda request, *args, **kwargs: {})
     kwargs = extra_args_func(request, *args, **kwargs)
-    form = form_class(request.POST, request.FILES, **kwargs)
+    kwargs['data'] = request.POST
+    form = form_class(**kwargs)
     if form.is_valid():
         data = {
             'valid': True,
