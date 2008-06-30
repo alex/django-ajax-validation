@@ -6,8 +6,11 @@ def include_validation():
     return '''
     <script type="text/javascript">
         (function($)    {
-            function inputs(form)   {
+            function form_data(form)   {
                 return form.find("input[@checked], input[@type='text'], input[@type='hidden'], input[@type='password'], input[@type='submit'], option[@selected], textarea").filter(':enabled');
+            }
+            function inputs(form)   {
+                return form.find("input, select, textarea")
             }
             
             $.fn.validate = function(url, settings) {
@@ -23,7 +26,7 @@ def include_validation():
                     var form = $(this);
                     settings.dom.bind(settings.event, function()  {
                         var params = {};
-                        inputs(form).each(function() {
+                        form_data(form).each(function() {
                             params[ this.name || this.id || this.parentNode.name || this.parentNode.id ] = this.value; 
                         });
                         
