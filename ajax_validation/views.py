@@ -23,7 +23,7 @@ def validate(request, *args, **kwargs):
         final_errors = {}
         for key, val in errors:
             if not isinstace(form.fields[key], forms.FileField):
-                html_id = form.fields[key].widget.attrs.get(id) or form[key].auto_id
+                html_id = form.fields[key].widget.attrs.get('id') or form[key].auto_id
                 html_id = form.fields[key].widget.id_for_label(html_id)
                 final_errors[html_id] = val
         data = {
