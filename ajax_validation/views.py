@@ -21,7 +21,7 @@ def validate(request, *args, **kwargs):
         else:
             errors = form.errors
         final_errors = {}
-        for key, val in errors:
+        for key, val in errors.iteritems():
             if not isinstace(form.fields[key], forms.FileField):
                 html_id = form.fields[key].widget.attrs.get('id') or form[key].auto_id
                 html_id = form.fields[key].widget.id_for_label(html_id)
