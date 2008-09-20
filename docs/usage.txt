@@ -4,9 +4,8 @@ Usage
 
 To use, Ajax Validation requires only that you add a URL(one per form), and some javascript to any page with the form.
 
-Example:
-
-forms.py::
+For example, if you had the following form::
+    
     from django import forms
     
     class ContactForm(forms.Form):
@@ -15,15 +14,17 @@ forms.py::
         message = forms.CharField(label='Your Message', widget=forms.Textarea)
 
 
-You would need to add the following url to your urls.py(you need to import the form class)::
+You would need to add the following url to your urls.py(you also need to import the form class)::
+
     (r'^SOME/URL/$', 'ajax_validation.views.validate', {'form_class': ContactForm}, 'contact_form_validate')
 
+
 The URL can take any arguments(named, or unamed), and you can also provide a 
-callback function, this function is given request, *args, and **kwargs and 
+callback function, this function is given request, \*args, and \*\*kwargs and 
 should return a dictionary which is passed to the form constructor.
 
+And then in the template in which you are displaying the form, you should add::
 
-And then in the template where you want to display the form(in the head)::
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
     {% load jquery_validation %}
     {% include_validation %}
@@ -47,4 +48,6 @@ it takes fields, which is a list of the fields that should be validated, it will
 not display errors that aren't in that list of fields.  The last 2 options are 
 dom and event, these allow you to choose when the validation will occur, dom 
 should be a jQuery object(i.e.: $('#my_field')), and event should be a jQuery 
-event(listed here: http://docs.jquery.com/Events/bind#typedatafn).
+event(listed `here`_).
+
+.. _here: http://docs.jquery.com/Events/bind#overview
