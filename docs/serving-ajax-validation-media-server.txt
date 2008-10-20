@@ -1,6 +1,6 @@
-==============================================
-Serving Ajax Validation With Your Media Server
-==============================================
+=====================================================
+Serving Ajax Validation With Your Static Media Server
+=====================================================
 
 By default, if you use the template tag included with Ajax Validation, the 
 script will be placed inside HTML <script> tags and served up this way.  This is 
