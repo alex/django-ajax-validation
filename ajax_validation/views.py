@@ -22,6 +22,8 @@ def validate(request, *args, **kwargs):
             errors = form.errors
         final_errors = {}
         for key, val in errors.iteritems():
+            if key == '__all__':
+                final_errors['__all__'] = val
             if not isinstance(form.fields[key], forms.FileField):
                 html_id = form.fields[key].widget.attrs.get('id') or form[key].auto_id
                 html_id = form.fields[key].widget.id_for_label(html_id)
