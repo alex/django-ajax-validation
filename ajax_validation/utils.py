@@ -1,9 +1,12 @@
 from django.utils.functional import Promise
 from django.utils.encoding import force_unicode
 try:
-    from simplejson import JSONEncoder
-except ImportError:
-    from django.utils.simplejson import JSONEncoder
+    from json import JSONEncoder
+except ImportError
+    try:
+        from simplejson import JSONEncoder
+    except ImportError:
+        from django.utils.simplejson import JSONEncoder
 
 class LazyEncoder(JSONEncoder):
     def default(self, obj):
