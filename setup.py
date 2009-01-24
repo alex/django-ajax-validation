@@ -8,7 +8,7 @@ setup(
     author='Alex Gaynor',
     author_email='alex.gaynor@gmail.com',
     url='http://github.com/alex/django-ajax-validation/tree/master',
-    packages=find_pacakges()
+    packages=find_pacakges(),
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
