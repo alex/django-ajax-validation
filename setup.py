@@ -1,4 +1,4 @@
-from distutils.core import setup
+from setuptools import setup, find_packages
 
 setup(
     name='django-ajax-validation',
@@ -8,9 +8,7 @@ setup(
     author='Alex Gaynor',
     author_email='alex.gaynor@gmail.com',
     url='http://github.com/alex/django-ajax-validation/tree/master',
-    packages=[
-        'ajax_validation',
-    ],
+    packages=find_pacakges()
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
