@@ -3,7 +3,7 @@
         return form.find("input[@checked], input[@type='text'], input[@type='hidden'], input[@type='password'], input[@type='submit'], option[@selected], textarea").filter(':enabled');
     }
     function inputs(form)   {
-        return form.find("input, select, textarea")
+        return form.find("input, select, textarea");
     }
     
     $.fn.validate = function(url, settings) {
