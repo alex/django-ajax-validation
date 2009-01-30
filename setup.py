@@ -8,9 +8,6 @@ setup(
     author_email='alex.gaynor@gmail.com',
     url='http://github.com/alex/django-ajax-validation/tree/master',
     packages=find_packages(),
-    data_files=[
-        ('ajax_validation/media/ajax_validation/js', ['ajax_validation/media/ajax_validation/js/jquery-ajax-validation.js']),
-    ],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
@@ -19,5 +16,11 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Framework :: Django',
-    ]
+    ],
+    # Make setuptools include all data files under version control,
+    # svn and CVS by default
+    include_package_data=True,
+    # Tells setuptools to download setuptools_git before running setup.py so
+    # it can find the data files under Git version control.
+    setup_requires=['setuptools_git'],
 )
