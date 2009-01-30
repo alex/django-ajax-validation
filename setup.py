@@ -8,6 +8,9 @@ setup(
     author_email='alex.gaynor@gmail.com',
     url='http://github.com/alex/django-ajax-validation/tree/master',
     packages=find_packages(),
+    data_files=[
+        ('ajax_validation/media/ajax_validation/js', ['ajax_validation/media/ajax_validation/js/jquery-ajax-validation.js']),
+    ],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
