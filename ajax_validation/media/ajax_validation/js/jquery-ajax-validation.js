@@ -5,24 +5,25 @@
     function inputs(form)   {
         return form.find("input, select, textarea");
     }
-    
+
     $.fn.validate = function(url, settings) {
         settings = $.extend({
             type: 'table',
             callback: false,
+            success: false,
             fields: false,
             dom: this,
             event: 'submit'
         }, settings);
-        
+
         return this.each(function() {
             var form = $(this);
             settings.dom.bind(settings.event, function()  {
                 var params = {};
                 form_data(form).each(function() {
-                    params[ this.name || this.id || this.parentNode.name || this.parentNode.id ] = this.value; 
+                    params[ this.name || this.id || this.parentNode.name || this.parentNode.id ] = this.value;
                 });
-                
+
                 var status = false;
                 if (settings.fields) {
                     params.fields = settings.fields;
@@ -89,6 +90,9 @@
                     type: 'POST',
                     url: url
                 });
+                if (status && settings.success) {
+                    return settings.success.apply(this);
+                }
                 return status;
             });
         });
