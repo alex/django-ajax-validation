@@ -21,10 +21,12 @@ def validate(request, *args, **kwargs):
             errors = {}
             formfields = {}
             for f in form.forms:
-                for fieldname in f.fields.keys():
-                    formfields['%s-%s' % (f.prefix, fieldname)] = f[fieldname]
+                for field in f.fields.keys():
+                    formfields[f.add_prefix(field)] = f[field]
                 for field, error in f.errors.iteritems():
-                    errors['%s-%s' % (f.prefix, field)] = error
+                    errors[f.add_prefix(field)] = error
+            if form.non_form_errors():
+                errors['__all__'] = form.non_form_errors()
         else:
             errors = form.errors
             formfields = dict([(fieldname, form[fieldname]) for fieldname in form.fields.keys()])
@@ -36,8 +38,8 @@ def validate(request, *args, **kwargs):
 
         final_errors = {}
         for key, val in errors.iteritems():
-            if key == '__all__':
-                final_errors['__all__'] = val
+            if '__all__' in key:
+                final_errors[key] = val
             elif not isinstance(formfields[key].field, forms.FileField):
                 html_id = formfields[key].field.widget.attrs.get('id') or formfields[key].auto_id
                 html_id = formfields[key].field.widget.id_for_label(html_id)
