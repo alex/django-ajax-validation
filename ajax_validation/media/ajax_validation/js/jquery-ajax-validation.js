@@ -1,7 +1,4 @@
 (function($)    {
-    function form_data(form)   {
-        return form.find("input[checked], input[type='text'], input[type='hidden'], input[type='password'], input[type='submit'], option[selected], textarea").filter(':enabled');
-    }
     function inputs(form)   {
         return form.find("input, select, textarea");
     }
@@ -19,18 +16,14 @@
         return this.each(function() {
             var form = $(this);
             settings.dom.bind(settings.event, function()  {
-                var params = {};
-                form_data(form).each(function() {
-                    params[ this.name || this.id || this.parentNode.name || this.parentNode.id ] = this.value;
-                });
-
                 var status = false;
+                var data = form.serialize();
                 if (settings.fields) {
-                    params.fields = settings.fields;
+                    data += '&' + $.param({'fields': settings.fields});
                 }
                 $.ajax({
                     async: false,
-                    data: params,
+                    data: data,
                     dataType: 'json',
                     error: function(XHR, textStatus, errorThrown)   {
                         status = true;
