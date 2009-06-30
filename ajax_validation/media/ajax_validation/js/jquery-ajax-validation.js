@@ -7,7 +7,7 @@
         settings = $.extend({
             type: 'table',
             callback: false,
-            success: false,
+            submitHandler: false,
             fields: false,
             dom: this,
             event: 'submit'
@@ -83,8 +83,8 @@
                     type: 'POST',
                     url: url
                 });
-                if (status && settings.success) {
-                    return settings.success.apply(this);
+                if (status && settings.submitHandler) {
+                    return settings.submitHandler.apply(this);
                 }
                 return status;
             });
