@@ -1,6 +1,6 @@
 (function($)    {
     function inputs(form)   {
-        return form.find("input, select, textarea");
+        return form.find(":input:visible:not(:button)");
     }
 
     $.fn.validate = function(url, settings) {
@@ -35,12 +35,20 @@
                                 settings.callback(data, form);
                             }
                             else    {
+                                var get_form_error_position = function(key) {
+                                    key = key || '__all__';
+                                    if (key == '__all__') {
+                                        var filter = ':first';
+                                    } else {
+                                        var filter = ':first[id^=id_' + key.replace('__all__', '') + ']';
+                                    }
+                                    return inputs(form).filter(filter).parent();
+                                };
                                 if (settings.type == 'p')    {
-                                    inputs(form).parent().prev('ul').remove();
-                                    inputs(form).parent().prev('ul').remove();
+                                    form.find('ul.errorlist').remove();
                                     $.each(data.errors, function(key, val)  {
-                                        if (key == '__all__')   {
-                                            var error = inputs(form).filter(':first').parent();
+                                        if (key.indexOf('__all__') >= 0)   {
+                                            var error = get_form_error_position(key);
                                             if (error.prev().is('ul.errorlist')) {
                                                 error.prev().before('<ul class="errorlist"><li>' + val + '</li></ul>');
                                             }
@@ -55,10 +63,10 @@
                                 }
                                 if (settings.type == 'table')   {
                                     inputs(form).prev('ul').remove();
-                                    inputs(form).filter(':first').parent().parent().prev('tr').remove();
+                                    form.find('tr._errors').remove();
                                     $.each(data.errors, function(key, val)  {
-                                        if (key == '__all__')   {
-                                            inputs(form).filter(':first').parent().parent().before('<tr><td colspan="2"><ul class="errorlist"><li>' + val + '.</li></ul></td></tr>');
+                                        if (key.indexOf('__all__') >= 0)   {
+                                            get_form_error_position(key).parent().before('<tr class="_errors"><td colspan="2"><ul class="errorlist"><li>' + val + '.</li></ul></td></tr>');
                                         }
                                         else    {
                                             $('#' + key).before('<ul class="errorlist"><li>' + val + '</li></ul>');
@@ -67,10 +75,10 @@
                                 }
                                 if (settings.type == 'ul')  {
                                     inputs(form).prev().prev('ul').remove();
-                                    inputs(form).filter(':first').parent().prev('li').remove();
+                                    form.find('li._errors').remove();
                                     $.each(data.errors, function(key, val)  {
-                                        if (key == '__all__')   {
-                                            inputs(form).filter(':first').parent().before('<li><ul class="errorlist"><li>' + val + '</li></ul></li>');
+                                        if (key.indexOf('__all__') >= 0)   {
+                                            get_form_error_position(key).before('<li class="_errors"><ul class="errorlist"><li>' + val + '</li></ul></li>');
                                         }
                                         else    {
                                             $('#' + key).prev().before('<ul class="errorlist"><li>' + val + '</li></ul>');
