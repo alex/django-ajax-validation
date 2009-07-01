@@ -1,4 +1,4 @@
-(function($)    {
+(function($) {
     function inputs(form)   {
         return form.find(":input:visible:not(:button)");
     }
@@ -7,10 +7,10 @@
         settings = $.extend({
             type: 'table',
             callback: false,
-            submitHandler: false,
             fields: false,
             dom: this,
-            event: 'submit'
+            event: 'submit',
+            submitHandler: null
         }, settings);
 
         return this.each(function() {
@@ -19,7 +19,7 @@
                 var status = false;
                 var data = form.serialize();
                 if (settings.fields) {
-                    data += '&' + $.param({'fields': settings.fields});
+                    data += '&' + $.param({fields: settings.fields});
                 }
                 $.ajax({
                     async: false,
