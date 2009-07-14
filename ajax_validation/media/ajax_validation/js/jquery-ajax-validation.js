@@ -62,11 +62,11 @@
                                     });
                                 }
                                 if (settings.type == 'table')   {
-                                    inputs(form).prev('ul').remove();
-                                    form.find('tr._errors').remove();
+                                    inputs(form).prev('ul.errorlist').remove();
+                                    form.find('tr:has(ul.errorlist)').remove();
                                     $.each(data.errors, function(key, val)  {
                                         if (key.indexOf('__all__') >= 0)   {
-                                            get_form_error_position(key).parent().before('<tr class="_errors"><td colspan="2"><ul class="errorlist"><li>' + val + '.</li></ul></td></tr>');
+                                            get_form_error_position(key).parent().before('<tr><td colspan="2"><ul class="errorlist"><li>' + val + '.</li></ul></td></tr>');
                                         }
                                         else    {
                                             $('#' + key).before('<ul class="errorlist"><li>' + val + '</li></ul>');
@@ -74,11 +74,11 @@
                                     });
                                 }
                                 if (settings.type == 'ul')  {
-                                    inputs(form).prev().prev('ul').remove();
-                                    form.find('li._errors').remove();
+                                    inputs(form).prev().prev('ul.errorlist').remove();
+                                    form.find('li:has(ul.errorlist)').remove();
                                     $.each(data.errors, function(key, val)  {
                                         if (key.indexOf('__all__') >= 0)   {
-                                            get_form_error_position(key).before('<li class="_errors"><ul class="errorlist"><li>' + val + '</li></ul></li>');
+                                            get_form_error_position(key).before('<li><ul class="errorlist"><li>' + val + '</li></ul></li>');
                                         }
                                         else    {
                                             $('#' + key).prev().before('<ul class="errorlist"><li>' + val + '</li></ul>');
