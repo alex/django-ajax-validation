@@ -55,3 +55,11 @@ event(listed `here`_).
 In addition you can provide a callable option, ``submitHandler``.  This
 recieves the form DOM object and can do whatever it pleases.  If it returns
 true the form will be submitted, else it won't.
+
+Using ``ajax-validation`` with ``django-uniform``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you want to use ``django-ajax-validation`` with ``django-uniform`` there is
+an extra included handler that works with it.  To use it simply include the
+``jquery-uni-form.js`` file in your template and pass
+``callback: uniform_callback`` to ``jQuery.validate``.
