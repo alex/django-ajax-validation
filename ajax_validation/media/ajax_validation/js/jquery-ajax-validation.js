@@ -25,6 +25,7 @@
                     async: false,
                     data: data,
                     dataType: 'json',
+                    traditional: true,
                     error: function(XHR, textStatus, errorThrown)   {
                         status = true;
                     },
